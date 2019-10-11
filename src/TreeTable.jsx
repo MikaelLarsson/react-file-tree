@@ -1,24 +1,24 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFolder, faFolderOpen, faFile } from '@fortawesome/free-solid-svg-icons'
 
-export const TreeTable = () => (
-    <tbody>
-        <tr className="level-0">
-        <td><FontAwesomeIcon icon={faFolderOpen} /> Opened folder</td>
-        <td></td>
-        </tr>
-        <tr className="level-1">
-        <td><FontAwesomeIcon icon={faFolderOpen} /> Opened folder</td>
-        <td></td>
-        </tr>
-        <tr className="level-2">
-        <td><FontAwesomeIcon icon={faFile} /> Filename</td>
-        <td>2019-01-01</td>
-        </tr>
-        <tr className="level-0">
-        <td><FontAwesomeIcon icon={faFolder} /> Foldername</td>
-        <td></td>
-        </tr>
-    </tbody>
-);
+export class TreeTable extends React.Component {
+    getTableRows = nodes => nodes.map((node, i) => {
+        if (node.children) {
+            return [
+                this.props.treeNode(this.props.key),
+                <TreeTable nodes={node.children} treeNode={this.props.treeNode} leafNode={this.props.leafNode} key={ i +1 } />
+            ];
+        }
+        return this.props.leafNode(this.props.key);
+    });
+    render() {
+        const { nodes } = this.props;
+        if (nodes && nodes.length) {
+            return (
+                <tbody>
+                    { this.getTableRows(nodes) }
+                </tbody>
+            );
+        }
+        return null;
+    }
+}
