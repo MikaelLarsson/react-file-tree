@@ -1,0 +1,13 @@
+.file-tree td {
+    text-align: left;
+    padding: 4px;
+}
+.file-tree .level-0 td:first-child {
+    padding-left: 0;
+}
+.file-tree .level-1 td:first-child {
+    padding-left: 25px;
+}
+.file-tree .level-2 td:first-child {
+    padding-left: 50px;
+}
