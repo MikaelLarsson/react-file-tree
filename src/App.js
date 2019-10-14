@@ -41,20 +41,20 @@ function App() {
             <th>Date</th>
           </tr>
         </thead>
-        <TreeTable treeNode={FolderRow} leafNode={FileRow} nodes={files} key={0} />
+        <TreeTable treeNode={folderRow} leafNode={fileRow} nodes={files} level={0} />
       </table>
     </div>
   );
 }
 
-const FolderRow = key => (
+const folderRow = key => (
   <tr className="level-0" key={key}>
     <td><FontAwesomeIcon icon={faFolderOpen} /> Opened folder</td>
     <td></td>
   </tr>
 );
 
-const FileRow = key => (
+const fileRow = key => (
   <tr className="level-2" key={key}>
     <td><FontAwesomeIcon icon={faFile} /> Filename</td>
     <td>2019-01-01</td>
