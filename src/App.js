@@ -41,7 +41,7 @@ function App() {
             <th>Date</th>
           </tr>
         </thead>
-        <TreeTable treeNode={folderRow} leafNode={fileRow} nodes={files} level={0} />
+        <TreeTable treeNode={folderRow} leafNode={fileRow} nodes={files} />
       </table>
     </div>
   );
