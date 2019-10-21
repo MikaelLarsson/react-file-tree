@@ -9,11 +9,11 @@ import './App.css';
 const files = [
   {
     name: 'Top folder',
-    expanded: true,
+    expanded: false,
     children: [
       {
         name: 'Foldername',
-        expanded: true,
+        expanded: false,
         children: [
           {
             date: '2019-01-01',
@@ -34,34 +34,59 @@ const files = [
   }
 ]
 
-function App() {
-  return (
-    <div className="App">
-      <table className="file-tree">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <TreeTable treeNode={folderRow} leafNode={fileRow} nodes={files} />
-      </table>
-    </div>
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = { files };
+  }
+  render() {
+    return (
+      <div className="App">
+        <table className="file-tree">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <TreeTable treeNode={this.folderRow} leafNode={this.fileRow} nodes={files} />
+        </table>
+      </div>
+    );
+  }
+
+  clickHandler = clickedNode => {
+    const updatedFiles = this.expandContractNode(clickedNode, this.state.files);
+    this.setState({ files: updatedFiles });
+  }
+
+  expandContractNode = (findNode, nodesList) => nodesList.map(currentNode => {
+    if (currentNode === findNode && currentNode.children) {
+      currentNode.expanded = !currentNode.expanded;
+    } else if (currentNode.children) {
+      this.expandContractNode(findNode, currentNode.children);
+    }
+    return currentNode;
+  });
+  
+  folderRow = (node, key, level) => (
+    <tr className={`level-${level}`} key={key}>
+      <td>
+        <FontAwesomeIcon 
+          icon={node.expanded ? faFolderOpen : faFolder }
+          onClick={this.clickHandler.bind(null, node)} 
+        /> { node.name }
+      </td>
+      <td></td>
+    </tr>
+  );
+  
+  fileRow = (node, key, level) => (
+    <tr className={`level-${level}`} key={key}>
+      <td><FontAwesomeIcon icon={faFile} /> { node.name }</td>
+      <td>{ node.date }</td>
+    </tr>
   );
 }
-
-const folderRow = (node, key, level) => (
-  <tr className={`level-${level}`} key={key}>
-    <td><FontAwesomeIcon icon={node.expanded ? faFolderOpen : faFolder } /> { node.name }</td>
-    <td></td>
-  </tr>
-);
-
-const fileRow = (node, key, level) => (
-  <tr className={`level-${level}`} key={key}>
-    <td><FontAwesomeIcon icon={faFile} /> { node.name }</td>
-    <td>{ node.date }</td>
-  </tr>
-);
 
 export default App;
