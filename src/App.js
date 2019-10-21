@@ -8,14 +8,14 @@ import './App.css';
 
 const files = [
   {
-    name: 'Foldername',
+    name: 'Top folder',
     children: [
       {
         name: 'Foldername',
         children: [
           {
             date: '2019-01-01',
-            name: 'Filename'
+            name: 'Filename.file'
           }
         ]
       }
@@ -47,17 +47,17 @@ function App() {
   );
 }
 
-const folderRow = (key, level) => (
+const folderRow = (node, key, level) => (
   <tr className={`level-${level}`} key={key}>
-    <td><FontAwesomeIcon icon={faFolderOpen} /> Opened folder</td>
+    <td><FontAwesomeIcon icon={faFolderOpen} /> { node.name }</td>
     <td></td>
   </tr>
 );
 
-const fileRow = (key, level) => (
+const fileRow = (node, key, level) => (
   <tr className={`level-${level}`} key={key}>
-    <td><FontAwesomeIcon icon={faFile} /> Filename</td>
-    <td>2019-01-01</td>
+    <td><FontAwesomeIcon icon={faFile} /> { node.name }</td>
+    <td>{ node.date }</td>
   </tr>
 );
 

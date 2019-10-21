@@ -7,7 +7,7 @@ export class TreeTable extends React.Component {
         const key = i + level +1;
         if (node.children) {
             return [
-                this.props.treeNode(i, level),
+                this.props.treeNode(node, i, level),
                 <TreeTable
                     nodes={node.children}
                     treeNode={this.props.treeNode}
@@ -17,7 +17,7 @@ export class TreeTable extends React.Component {
                 />
             ];
         }
-        return this.props.leafNode(i, level);
+        return this.props.leafNode(node, i, level);
     });
     render() {
         const { nodes, level } = this.props;
