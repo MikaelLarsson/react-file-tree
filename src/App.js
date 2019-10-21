@@ -47,15 +47,15 @@ function App() {
   );
 }
 
-const folderRow = key => (
-  <tr className="level-0" key={key}>
+const folderRow = (key, level) => (
+  <tr className={`level-${level}`} key={key}>
     <td><FontAwesomeIcon icon={faFolderOpen} /> Opened folder</td>
     <td></td>
   </tr>
 );
 
-const fileRow = key => (
-  <tr className="level-2" key={key}>
+const fileRow = (key, level) => (
+  <tr className={`level-${level}`} key={key}>
     <td><FontAwesomeIcon icon={faFile} /> Filename</td>
     <td>2019-01-01</td>
   </tr>
